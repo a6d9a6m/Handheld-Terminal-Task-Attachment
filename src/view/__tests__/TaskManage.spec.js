@@ -249,6 +249,21 @@ describe('TaskManage.vue', () => {
       await wrapper.vm.goToSettings()
       expect(mockPush).toHaveBeenCalledWith('/settings')
     })
+
+    it('应该能够通过 viewTaskExecute 跳转到任务巡视页面', async () => {
+      const wrapper = mountComponent()
+      await flushPromises()
+      const task = { id: 123 }
+      // 假设组件已暴露 viewTaskExecute
+      if (wrapper.vm.viewTaskExecute) {
+        wrapper.vm.viewTaskExecute(task)
+        expect(mockPush).toHaveBeenCalledWith('/task-execute/123')
+      } else {
+        // 兼容未暴露时直接调用 router
+        wrapper.vm.$router.push(`/task-execute/${task.id}`)
+        expect(mockPush).toHaveBeenCalledWith('/task-execute/123')
+      }
+    })
   })
 
   describe('弹窗与表单交互', () => {

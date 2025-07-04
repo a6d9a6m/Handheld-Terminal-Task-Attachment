@@ -138,7 +138,7 @@
                     v-if="scope.row.taskStatus === '巡视中'"
                     type="info"
                     size="small"
-                    @click="viewTaskDetail(scope.row)"
+                    @click="viewTaskExecute(scope.row)"
                   >
                     查看
                   </el-button>
@@ -680,6 +680,10 @@ const uploadTask = async (task) => {
 
 const viewTaskDetail = (task) => {
   router.push(`/task-detail/${task.id}`);
+};
+
+const viewTaskExecute = (task) => {
+  router.push(`/task-execute/${task.id}`);
 };
 
 // 生命周期

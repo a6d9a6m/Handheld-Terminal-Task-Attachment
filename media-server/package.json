@@ -8,6 +8,6 @@
     "check-ffmpeg": "ffmpeg -version || echo '请先安装 FFmpeg'"
   },
   "dependencies": {
-    "node-media-server": "^2.6.2"
+    "node-media-server": "^2.7.4"
   }
-} 
+}
