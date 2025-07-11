@@ -48,12 +48,15 @@ export default defineConfig({
   test: {
     globals: true,
     environment: 'jsdom',
+    include: ['src/**/*.{test,spec}.{js,ts,jsx,tsx}'],
     coverage: {
       provider: 'v8',
       reporter: ['text', 'json', 'html'],
-
-      include: ['src/view/**/*.{js,vue}'],
-
+      include: [
+        'src/view/**/*.{js,vue}',
+        'src/api/**/*.js',
+        'src/utils/**/*.js'
+      ],
       exclude: [
         'src/**/__tests__/**',
         'src/main.js',

@@ -27,7 +27,7 @@ const router = useRouter();
  * Navigates the user back to the homepage.
  */
 const goHome = () => {
-  router.push('/');
+  return router.push('/');
 };
 </script>
 
