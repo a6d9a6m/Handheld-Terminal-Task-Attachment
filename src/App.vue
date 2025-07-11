@@ -1,9 +1,10 @@
 <script setup>
-
+import FloatingChat from './components/FloatingChat.vue';
 </script>
 
 <template>
   <router-view :key="$route.fullPath" />
+  <FloatingChat />
 </template>
 
 <style>

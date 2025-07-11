@@ -2,8 +2,7 @@ import axios from '../utils/request';
 const baseUrl = '/api/agv/taskmanagee';
 // API 服务配置
 
-const API_BASE_URL = 'http://192.168.2.57/prod-api';
-const WEBRTC_BASE_URL = 'http://192.168.2.57/webrtc-api';
+const API_BASE_URL = '/api';
 
 // 配置axios默认设置
 axios.defaults.timeout = 10000;

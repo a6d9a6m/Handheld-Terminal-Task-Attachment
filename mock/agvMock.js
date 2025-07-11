@@ -1,5 +1,7 @@
 import Mock from 'mockjs';
 
+console.log('agvMock loaded')
+
 const tasks = [
   {
     id: 1,
@@ -102,15 +104,14 @@ export default [
     url: '/api/agv/task/list',
     method: 'get',
     response: ({ query }) => {
-      // 简单分页和过滤模拟
-      const page = Number(query.page) || 1;
+      // 兼容 pageNum 和 page
+      const page = Number(query.pageNum || query.page) || 1;
       const pageSize = Number(query.pageSize) || 10;
-      // 可添加过滤条件
       const data = tasks.slice((page - 1) * pageSize, page * pageSize);
       return {
         code: 200,
         msg: '成功',
-        data,
+        rows: data, // 注意这里应该是 rows
         total: tasks.length,
       };
     },
