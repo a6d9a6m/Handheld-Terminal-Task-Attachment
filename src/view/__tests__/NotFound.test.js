@@ -62,7 +62,7 @@ describe('NotFound.vue - 404页面组件测试', () => {
     it('应该包含嘴部结构', () => {
       const mouth = wrapper.find('.mouth')
       expect(mouth.exists()).toBe(true)
-      
+
       const mouthParts = wrapper.findAll('.mouth-part-1, .mouth-part-2, .mouth-part-3')
       expect(mouthParts).toHaveLength(3)
     })
@@ -111,11 +111,11 @@ describe('NotFound.vue - 404页面组件测试', () => {
     it('应该有正确的HTML结构层次', () => {
       const container = wrapper.find('.not-found-container')
       expect(container.exists()).toBe(true)
-      
+
       // 验证子元素的存在和顺序
       const children = container.element.children
       expect(children.length).toBeGreaterThanOrEqual(3)
-      
+
       // 验证Creeper face存在
       expect(wrapper.find('.creeper-face').exists()).toBe(true)
       // 验证标题存在
@@ -130,14 +130,14 @@ describe('NotFound.vue - 404页面组件测试', () => {
       const creeperFace = wrapper.find('.creeper-face')
       const eyes = creeperFace.findAll('.eye')
       const mouth = creeperFace.find('.mouth')
-      
+
       expect(eyes).toHaveLength(2)
       expect(mouth.exists()).toBe(true)
-      
+
       const mouthPart1 = mouth.find('.mouth-part-1')
       const mouthPart2 = mouth.find('.mouth-part-2')
       const mouthPart3 = mouth.find('.mouth-part-3')
-      
+
       expect(mouthPart1.exists()).toBe(true)
       expect(mouthPart2.exists()).toBe(true)
       expect(mouthPart3.exists()).toBe(true)
@@ -174,7 +174,7 @@ describe('NotFound.vue - 404页面组件测试', () => {
       const statusCode = wrapper.find('.status-code')
       const message = wrapper.find('.message')
       const button = wrapper.find('.btn-home')
-      
+
       expect(statusCode.text()).toBeTruthy()
       expect(message.text()).toBeTruthy()
       expect(button.text()).toBeTruthy()
@@ -190,7 +190,7 @@ describe('NotFound.vue - 404页面组件测试', () => {
 
     it('应该处理按钮的多次快速点击', async () => {
       const homeButton = wrapper.find('.btn-home')
-      
+
       // 快速连续点击
       await homeButton.trigger('click')
       await homeButton.trigger('click')
@@ -229,10 +229,10 @@ describe('NotFound.vue - 404页面组件测试', () => {
   describe('事件处理测试', () => {
     it('应该正确绑定click事件', async () => {
       const homeButton = wrapper.find('.btn-home')
-      
+
       // 模拟点击事件
       await homeButton.trigger('click')
-      
+
       expect(mockRouter.push).toHaveBeenCalledWith('/')
     })
 
@@ -240,9 +240,9 @@ describe('NotFound.vue - 404页面组件测试', () => {
       // 其他元素不应该有click处理器
       const statusCode = wrapper.find('.status-code')
       const message = wrapper.find('.message')
-      
+
       expect(statusCode.element.onclick).toBeNull()
       expect(message.element.onclick).toBeNull()
     })
   })
-}) 
+})
