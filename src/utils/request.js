@@ -1,7 +1,7 @@
 import axios from 'axios';
 
 const service = axios.create({
-  timeout: 5000,
+  timeout: 30000, // 增加到30秒
 });
 
 service.interceptors.response.use(

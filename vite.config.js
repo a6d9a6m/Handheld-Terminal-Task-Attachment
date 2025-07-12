@@ -11,6 +11,13 @@ export default defineConfig({
       mockPath: 'mock',
       localEnabled: true,
       supportTs: false,
+      // 配置mock插件不拦截外部请求
+      ignore: /^\/.*\.(js|css|png|jpg|jpeg|gif|svg|ico|woff|woff2|ttf|eot|wasm|onnx|onnx_data|bin|json)$/,
+      // 只拦截/api开头的请求
+      injectCode: `
+        import { setupProdMockServer } from './mock/mockProdServer.js';
+        setupProdMockServer();
+      `,
     }),
   ],
   resolve: {
@@ -43,7 +50,8 @@ export default defineConfig({
   },
   assetsInclude: ['**/*.wasm'],  // 添加对wasm文件的支持
   optimizeDeps: {
-    exclude: ['@easydarwin/easyplayer'] // 排除EasyPlayer依赖以避免预构建问题
+    exclude: ['@easydarwin/easyplayer'], // 排除EasyPlayer依赖以避免预构建问题
+    include: ['@xenova/transformers'] // 预构建transformers.js
   },
   test: {
     globals: true,
