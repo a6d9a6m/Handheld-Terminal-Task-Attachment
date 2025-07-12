@@ -44,14 +44,14 @@ describe('taskmanagee.js - API接口测试', () => {
       it('应该调用正确的API获取系统配置', async () => {
         const mockResponse = {
           code: 200,
-          data: { host: '192.168.1.100', port: 8080 },
+          data: { host: '192.168.1.1', port: 8080 },
           msg: 'success'
         }
         axios.get.mockResolvedValueOnce(mockResponse)
 
         const result = await getConfig()
 
-        expect(axios.get).toHaveBeenCalledWith('http://192.168.2.57/prod-api/agv/config')
+        expect(axios.get).toHaveBeenCalledWith('/api/agv/config')
         expect(result).toEqual(mockResponse)
       })
 
@@ -72,7 +72,7 @@ describe('taskmanagee.js - API接口测试', () => {
         const result = await updateConfig(configData)
 
         expect(axios.put).toHaveBeenCalledWith(
-          'http://192.168.2.57/prod-api/agv/config',
+          '/api/agv/config',
           configData
         )
         expect(result).toEqual(mockResponse)
@@ -94,7 +94,7 @@ describe('taskmanagee.js - API接口测试', () => {
         const result = await listTask(params)
 
         expect(axios.get).toHaveBeenCalledWith(
-          'http://192.168.2.57/prod-api/agv/task/list',
+          '/api/agv/task/list',
           { params }
         )
         expect(result).toEqual(mockResponse)
@@ -113,7 +113,7 @@ describe('taskmanagee.js - API接口测试', () => {
 
         const result = await getTask(taskId)
 
-        expect(axios.get).toHaveBeenCalledWith('http://192.168.2.57/prod-api/agv/task/123')
+        expect(axios.get).toHaveBeenCalledWith('/api/agv/task/123')
         expect(result).toEqual(mockResponse)
       })
     })
@@ -127,7 +127,7 @@ describe('taskmanagee.js - API接口测试', () => {
         const result = await addTask(taskData)
 
         expect(axios.post).toHaveBeenCalledWith(
-          'http://192.168.2.57/prod-api/agv/task',
+          '/api/agv/task',
           taskData
         )
         expect(result).toEqual(mockResponse)
@@ -143,7 +143,7 @@ describe('taskmanagee.js - API接口测试', () => {
         const result = await updateTask(taskData)
 
         expect(axios.put).toHaveBeenCalledWith(
-          'http://192.168.2.57/prod-api/agv/task',
+          '/api/agv/task',
           taskData
         )
         expect(result).toEqual(mockResponse)
@@ -158,7 +158,7 @@ describe('taskmanagee.js - API接口测试', () => {
 
         const result = await delTask(taskId)
 
-        expect(axios.delete).toHaveBeenCalledWith('http://192.168.2.57/prod-api/agv/task/123')
+        expect(axios.delete).toHaveBeenCalledWith('/api/agv/task/123')
         expect(result).toEqual(mockResponse)
       })
     })
@@ -171,7 +171,7 @@ describe('taskmanagee.js - API接口测试', () => {
 
         const result = await startTask(taskId)
 
-        expect(axios.post).toHaveBeenCalledWith('http://192.168.2.57/prod-api/agv/task/start/123')
+        expect(axios.post).toHaveBeenCalledWith('/api/agv/task/start/123')
         expect(result).toEqual(mockResponse)
       })
     })
@@ -185,7 +185,7 @@ describe('taskmanagee.js - API接口测试', () => {
         const result = await endTask(taskId)
 
         expect(axios.post).toHaveBeenCalledWith(
-          'http://192.168.2.57/prod-api/agv/task/end/123?isAbort=false'
+          '/api/agv/task/end/123?isAbort=false'
         )
         expect(result).toEqual(mockResponse)
       })
@@ -198,7 +198,7 @@ describe('taskmanagee.js - API接口测试', () => {
         const result = await endTask(taskId, true)
 
         expect(axios.post).toHaveBeenCalledWith(
-          'http://192.168.2.57/prod-api/agv/task/end/123?isAbort=true'
+          '/api/agv/task/end/123?isAbort=true'
         )
         expect(result).toEqual(mockResponse)
       })
@@ -217,7 +217,7 @@ describe('taskmanagee.js - API接口测试', () => {
 
         const result = await heartbeat()
 
-        expect(axios.get).toHaveBeenCalledWith('http://192.168.2.57/prod-api/agv/movement/heartbeat')
+        expect(axios.get).toHaveBeenCalledWith('/api/agv/movement/heartbeat')
         expect(result).toEqual(mockResponse)
       })
     })
@@ -229,7 +229,7 @@ describe('taskmanagee.js - API接口测试', () => {
 
         const result = await agvForward()
 
-        expect(axios.post).toHaveBeenCalledWith('http://192.168.2.57/prod-api/agv/movement/forward')
+        expect(axios.post).toHaveBeenCalledWith('/api/agv/movement/forward')
         expect(result).toEqual(mockResponse)
       })
 
@@ -239,7 +239,7 @@ describe('taskmanagee.js - API接口测试', () => {
 
         const result = await agvStop()
 
-        expect(axios.post).toHaveBeenCalledWith('http://192.168.2.57/prod-api/agv/movement/stop')
+        expect(axios.post).toHaveBeenCalledWith('/api/agv/movement/stop')
         expect(result).toEqual(mockResponse)
       })
 
@@ -249,7 +249,7 @@ describe('taskmanagee.js - API接口测试', () => {
 
         const result = await agvBackward()
 
-        expect(axios.post).toHaveBeenCalledWith('http://192.168.2.57/prod-api/agv/movement/backward')
+        expect(axios.post).toHaveBeenCalledWith('/api/agv/movement/backward')
         expect(result).toEqual(mockResponse)
       })
     })
@@ -259,33 +259,22 @@ describe('taskmanagee.js - API接口测试', () => {
     describe('getVideoStreamUrl()', () => {
       it('应该返回正确的视频流地址', () => {
         const channel = 1
-        const expectedUrl = 'http://192.168.2.57/webrtc-api/index/api/webrtc?app=live&stream=1&type=play'
-
         const result = getVideoStreamUrl(channel)
-
-        expect(result).toBe(expectedUrl)
+        expect(result).toBe('/webrtc-api/index/api/webrtc?app=live&stream=1&type=play')
       })
 
       it('应该处理不同的通道号', () => {
-        expect(getVideoStreamUrl(2)).toBe(
-          'http://192.168.2.57/webrtc-api/index/api/webrtc?app=live&stream=2&type=play'
-        )
-        expect(getVideoStreamUrl(3)).toBe(
-          'http://192.168.2.57/webrtc-api/index/api/webrtc?app=live&stream=3&type=play'
-        )
-        expect(getVideoStreamUrl(4)).toBe(
-          'http://192.168.2.57/webrtc-api/index/api/webrtc?app=live&stream=4&type=play'
-        )
+        expect(getVideoStreamUrl(1)).toBe('/webrtc-api/index/api/webrtc?app=live&stream=1&type=play')
+        expect(getVideoStreamUrl(2)).toBe('/webrtc-api/index/api/webrtc?app=live&stream=2&type=play')
+        expect(getVideoStreamUrl(3)).toBe('/webrtc-api/index/api/webrtc?app=live&stream=3&type=play')
+        expect(getVideoStreamUrl(4)).toBe('/webrtc-api/index/api/webrtc?app=live&stream=4&type=play')
       })
     })
 
     describe('getAudioStreamUrl()', () => {
       it('应该返回正确的音频流地址', () => {
-        const expectedUrl = 'http://192.168.2.57/webrtc-api/index/api/webrtc?app=live&stream=5&type=play'
-
         const result = getAudioStreamUrl()
-
-        expect(result).toBe(expectedUrl)
+        expect(result).toBe('/webrtc-api/index/api/webrtc?app=live&stream=5&type=play')
       })
     })
   })
@@ -309,34 +298,33 @@ describe('taskmanagee.js - API接口测试', () => {
 
     it('应该正确处理endTask的默认参数', async () => {
       const taskId = 123
-      axios.post.mockResolvedValueOnce({ code: 200 })
+      const mockResponse = { code: 200, msg: 'task completed' }
+      axios.post.mockResolvedValueOnce(mockResponse)
 
       await endTask(taskId) // 不传递 isAbort 参数
 
       expect(axios.post).toHaveBeenCalledWith(
-        'http://192.168.2.57/prod-api/agv/task/end/123?isAbort=false'
+        '/api/agv/task/end/123?isAbort=false'
       )
     })
   })
 
   describe('参数验证测试', () => {
     it('getTask() 应该正确处理数字和字符串ID', async () => {
-      axios.get.mockResolvedValue({ code: 200 })
+      const mockResponse = { code: 200, data: { id: 123 }, msg: 'success' }
+      axios.get.mockResolvedValue(mockResponse)
 
       await getTask(123)
-      expect(axios.get).toHaveBeenCalledWith('http://192.168.2.57/prod-api/agv/task/123')
+      expect(axios.get).toHaveBeenCalledWith('/api/agv/task/123')
 
       await getTask('456')
-      expect(axios.get).toHaveBeenCalledWith('http://192.168.2.57/prod-api/agv/task/456')
+      expect(axios.get).toHaveBeenCalledWith('/api/agv/task/456')
     })
 
     it('getVideoStreamUrl() 应该正确处理不同类型的通道参数', () => {
-      expect(getVideoStreamUrl('1')).toBe(
-        'http://192.168.2.57/webrtc-api/index/api/webrtc?app=live&stream=1&type=play'
-      )
-      expect(getVideoStreamUrl(2)).toBe(
-        'http://192.168.2.57/webrtc-api/index/api/webrtc?app=live&stream=2&type=play'
-      )
+      expect(getVideoStreamUrl(1)).toBe('/webrtc-api/index/api/webrtc?app=live&stream=1&type=play')
+      expect(getVideoStreamUrl('2')).toBe('/webrtc-api/index/api/webrtc?app=live&stream=2&type=play')
+      expect(getVideoStreamUrl(3)).toBe('/webrtc-api/index/api/webrtc?app=live&stream=3&type=play')
     })
   })
 }) 

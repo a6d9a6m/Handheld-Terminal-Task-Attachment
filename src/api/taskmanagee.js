@@ -3,6 +3,7 @@ const baseUrl = '/api/agv/taskmanagee';
 // API 服务配置
 
 const API_BASE_URL = '/api';
+const WEBRTC_BASE_URL = '/webrtc-api';
 
 // 配置axios默认设置
 axios.defaults.timeout = 10000;
